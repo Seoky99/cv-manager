@@ -1,0 +1,25 @@
+.testStyles {
+    display: flex;
+    gap: 20%;
+}
+
+.resume-container {
+    background-color: #fff;
+    color: black;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact-information {
+    display: flex;
+}
+
+.panel {
+    flex: 1;
+}
+
+.tab-item {
+    display: flex;
+}
