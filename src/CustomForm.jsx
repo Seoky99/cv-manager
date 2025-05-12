@@ -1,24 +1,23 @@
-function CustomForm({title, description, handleChange, headerData}) {
+function CustomForm({handleChange, formData}) {
+
+    const formInputs = [];
+
+    for (const [key, value] of Object.entries(formData)) {
+        formInputs.push(
+            <div key={`${key}`}>
+                <label htmlFor={`${key}-input`}>
+                    {key[0].toUpperCase() + key.slice(1)}
+                </label>
+                <input id={`${key}-input`} name={`${key}`} onChange={(e) => handleChange(e)} value={value}></input> 
+            </div>
+        );
+    }
+
     return (
-        <>
-            <h1>{title}</h1>
-            <p>{description}</p>
-
-            <label htmlFor="name-input"></label>
-            <input id="name-input" name="name" onChange={(e) => handleChange(e)} value={headerData["name"]}></input>
-
-            <label htmlFor="email-input"></label>
-            <input id="email-input" name="email" onChange={(e) => handleChange(e)} value={headerData["email"]}></input>
-
-            <label htmlFor="phone-input"></label>
-            <input id="phone-input" name="phone" onChange={(e) => handleChange(e)} value={headerData["phone"]}></input>
-
-            <label htmlFor="address-input"></label>
-            <input id="address-input" name="address" onChange={(e) => handleChange(e)} value={headerData["address"]}></input>
-
-        </>
+        <div className="form">
+            {formInputs}
+        </div>
     );
-
 }
 
 export default CustomForm; 

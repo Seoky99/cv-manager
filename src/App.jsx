@@ -2,8 +2,10 @@ import Dropdown from './Dropdown'
 import CustomForm from './CustomForm'
 import Resume from './Resume'
 import Panel from "./Panel"
+import Tab from "./Tab"
 import { useState } from "react";
 import './styles.css'
+import TabList from './TabList'
 
 
 function App() {
@@ -15,25 +17,66 @@ function App() {
     address: "Address here!"
   };
 
+  const initialEducationData = 
+     [{
+        id: crypto.randomUUID(), 
+        school: "Cornell University",
+        degree: "Computer Science",
+        startDate: "2-3-30",
+        endDate: "3-12-49", 
+        location: "Ithaca, NY",
+    },
+      {
+        id: crypto.randomUUID(), 
+        school: "NY State",
+        degree: "Computer Science",
+        startDate: "2-3-30",
+        endDate: "3-12-49", 
+        location: "Ithaca, NY",
+    }];
+
+    const initialExperienceData = [
+      {
+        id: crypto.randomUUID(), 
+        companyName: "CompanyName", 
+        positionTitle: "PositionTitle",
+        startDate: "1-1-1", 
+        endDate: "1-1-1", 
+        location: "123 Corbin", 
+        description: "I did stuff.",
+      }
+    ];
+
   const [headerData, setHeaderData] = useState(initialHeaderData);
+  const [educationData, setEducationData] = useState(initialEducationData);
+  const [experienceData, setExperienceData] = useState(initialExperienceData);
   
-  function handleChange(e) {
+  function handleHeaderChange(e) {
       const newState = {...headerData, [e.target.name]: e.target.value};
       setHeaderData(newState);
   }
 
+  function handleTabChange(e, id, data, dataHandler) {
+      const newState = data.map((tab) => {
+          return tab.id === id ? {...tab, [e.target.name]: e.target.value} : tab;
+      });
+
+      dataHandler(newState);
+  }
+
   return (
-    <div className="testStyles">
-
-        <Resume headerData={headerData}/>
-
+    <div className="whole-wrapper">
+        <Resume headerData={headerData} educationData={educationData} experienceData={experienceData}/>
         <Panel>
-          <Dropdown>
-            <CustomForm title="Title1" description="Description1" handleChange={handleChange} headerData={headerData}></CustomForm>
+          <Dropdown title="Personal Details">
+            <CustomForm formData={headerData} handleChange={handleHeaderChange}></CustomForm>
           </Dropdown>
-          {/*<Dropdown>
-            <CustomForm title="Title2" description="Description2" handleChange={setName} testVal={name}></CustomForm>
-          </Dropdown> */}
+          <Dropdown title="Education">
+            <TabList tabData={educationData} handleChange={handleTabChange} dataHandler={setEducationData}/>
+          </Dropdown>
+          <Dropdown title="Experience">
+            <TabList tabData={experienceData} handleChange={handleTabChange} dataHandler={setExperienceData}></TabList>
+          </Dropdown>
         </Panel>
     </div>
   )

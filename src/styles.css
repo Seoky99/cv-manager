@@ -1,4 +1,4 @@
-.testStyles {
+.whole-wrapper {
     display: flex;
     gap: 20%;
 }
@@ -22,4 +22,32 @@
 
 .tab-item {
     display: flex;
+    flex-direction: column;
+}
+
+.dropdown-title {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    & button {
+        max-height: 30px;
+    }
+}
+
+.tab-buttons {
+    display: flex;
+    align-items: center;
+    font-size: 0.5rem;
+    border: 1px solid white;
+
+     & button {
+        max-height: 30px;
+    }
+}
+
+.tab-container {
+    display: flex; 
+    flex-direction: column;
+    gap: 20px;
 }

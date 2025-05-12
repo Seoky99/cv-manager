@@ -1,15 +1,21 @@
 import {useState} from 'react';
 
-function Dropdown({ children }) {
+function Dropdown({ children, title }) {
 
     const [open, setOpen] = useState(false);
 
     return (
         <>
-            <h1 className="title">Hello!</h1>
-            <button onClick={() => setOpen(!open)}>Click me!</button>
-            {open && <h2>hello i am openable content</h2>}
-            {open && children}
+            <div className="dropdown-container">
+                <div className="dropdown-title">
+                    <h1 className="title">{title}</h1>
+                    <button onClick={() => setOpen(!open)}>Click me!</button>
+                </div>
+            
+                <div className="dropdown-children">
+                    {open && children}
+                </div>
+            </div>
         </>
     )
 }
