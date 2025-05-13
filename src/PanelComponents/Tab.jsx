@@ -12,10 +12,12 @@ function Tab({tabData, handleChange}) {
     return(
 
         <div className="tab-container">
-            <div className="tab-buttons">
-                <h1>{tabData.school}</h1>
-                <button onClick={() => setEditHidden(!editHidden)}>EDIT</button>
-                <button>DELETE</button>
+            <div className="tab-header">
+                <h1>{tabData.school || tabData.companyName}</h1>
+                <div className="tab-buttons">
+                    <button onClick={() => setEditHidden(!editHidden)}>EDIT</button>
+                    <button>DELETE</button>
+                </div>
             </div>
 
             {editHidden && <CustomForm handleChange={(e) => handleChange(e, tabData.id)} formData={dataWithoutIDs}></CustomForm>}
