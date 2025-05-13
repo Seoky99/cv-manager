@@ -2,7 +2,7 @@ import CustomForm from "./CustomForm";
 import { useState } from 'react';
 
 
-function Tab({tabData, handleChange}) {
+function Tab({tabData, handleChange, handleDelete}) {
 
     const [ editHidden, setEditHidden ] = useState(false);
 
@@ -16,7 +16,7 @@ function Tab({tabData, handleChange}) {
                 <h1>{tabData.school || tabData.companyName}</h1>
                 <div className="tab-buttons">
                     <button onClick={() => setEditHidden(!editHidden)}>EDIT</button>
-                    <button>DELETE</button>
+                    <button onClick={() => handleDelete(tabData.id)}>DELETE</button>
                 </div>
             </div>
 

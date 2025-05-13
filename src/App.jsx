@@ -59,7 +59,38 @@ function App() {
       const newState = data.map((tab) => {
           return tab.id === id ? {...tab, [e.target.name]: e.target.value} : tab;
       });
+      dataHandler(newState);
+  }
+  
+  function handleDelete(id, data, dataHandler) {
+      const newData = [...data];
+      
+      const newState = newData.filter( (tab) => {
+        return !(tab.id === id); 
+      } );
 
+      dataHandler(newState);
+  }
+
+  function handleAdd(data, dataHandler, isEducation) {
+      const newData = isEducation ? {
+        id: crypto.randomUUID(), 
+        school: "Cornell University",
+        degree: "Computer Science",
+        startDate: "2/3/30",
+        endDate: "3/12/49", 
+        location: "Ithaca, NY",
+      } : {
+        id: crypto.randomUUID(), 
+        companyName: "CompanyName", 
+        positionTitle: "PositionTitle",
+        startDate: "1/1/1", 
+        endDate: "1/1/1", 
+        location: "123 Corbin", 
+        description: "I did stuff.",
+      }
+
+      const newState = [...data, newData];
       dataHandler(newState);
   }
 
@@ -67,14 +98,14 @@ function App() {
     <div className="whole-wrapper">
         <Resume headerData={headerData} educationData={educationData} experienceData={experienceData}/>
         <Panel>
-          <Dropdown title="Personal Details">
+          <Dropdown title="Personal Details" hasAdd={false}>
             <CustomForm formData={headerData} handleChange={handleHeaderChange}></CustomForm>
           </Dropdown>
-          <Dropdown title="Education">
-            <TabList tabData={educationData} handleChange={handleTabChange} dataHandler={setEducationData}/>
+          <Dropdown title="Education" handleAdd={handleAdd} data={educationData} dataHandler={setEducationData} isEducation={true}>
+            <TabList tabData={educationData} handleChange={handleTabChange} handleDelete={handleDelete} dataHandler={setEducationData}/>
           </Dropdown>
-          <Dropdown title="Experience">
-            <TabList tabData={experienceData} handleChange={handleTabChange} dataHandler={setExperienceData}></TabList>
+          <Dropdown title="Experience" handleAdd={handleAdd} data={experienceData} dataHandler={setExperienceData} isEducation={false}>
+            <TabList tabData={experienceData} handleChange={handleTabChange} handleDelete={handleDelete} dataHandler={setExperienceData}></TabList>
           </Dropdown>
         </Panel>
     </div>

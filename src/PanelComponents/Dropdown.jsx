@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-function Dropdown({ children, title }) {
+function Dropdown({ children, title, handleAdd, data, dataHandler, isEducation, hasAdd=true }) {
 
     const [open, setOpen] = useState(false);
 
@@ -14,6 +14,7 @@ function Dropdown({ children, title }) {
             
                 <div className="dropdown-children">
                     {open && children}
+                    {open && hasAdd && <button onClick={() => {handleAdd(data, dataHandler, isEducation)}}>CLICK ME!</button>}
                 </div>
             </div>
         </>
